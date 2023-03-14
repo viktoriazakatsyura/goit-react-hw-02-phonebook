@@ -5,6 +5,7 @@ import { Container } from './App.styles';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
+import ContactListItem from './ContactListItem/ContactListItem';
 
 export default class App extends Component {
   state = {
@@ -47,11 +48,7 @@ export default class App extends Component {
   };
 
   render() {
-    const filterContact = this.state.contacts.filter(contact => {
-      return contact.name
-        .toLowerCase()
-        .includes(this.state.filter.toLowerCase());
-    });
+    const { contacts, filter } = this.state;
     return (
       <Container>
         <h1>Phonebook</h1>
@@ -59,7 +56,8 @@ export default class App extends Component {
         <h2>Contacts</h2>
         <Filter filter={this.filterChange} />
         <ContactList
-          filter={filterContact}
+          contacts={contacts}
+          filterValue={filter}
           onDeleteContact={this.deleteOnContact}
         />
       </Container>

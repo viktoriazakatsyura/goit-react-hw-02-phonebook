@@ -1,33 +1,35 @@
 import React from 'react';
+import ContactListItem from 'components/ContactListItem/ContactListItem';
 
-import { List, ListItame, BtnDelete } from './ContactList.styled';
+import { List } from './ContactList.styled';
 import PropTypes from 'prop-types';
 
-const ContactList = ({ filter, onDeleteContact }) => {
+const ContactList = props => {
+  const { contacts, filterValue, onDeleteContact } = props;
+
+  const filterContact = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filterValue.toLowerCase())
+  );
   return (
     <List>
-      {filter.map(({ id, name, number }) => (
-        <ListItame key={id}>
-          <p>
-            {name}:{number}
-          </p>
-          <BtnDelete type="button" onClick={() => onDeleteContact(id)}>
-            Delete
-          </BtnDelete>
-        </ListItame>
-      ))}
+      {filterContact.map(({ id, name, number }) => {
+        return (
+          <ContactListItem
+            name={name}
+            number={number}
+            id={id}
+            key={id}
+            onDeleteContact={onDeleteContact}
+          />
+        );
+      })}
     </List>
   );
 };
 
-ContactList.prototype = {
-  filter: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.number.isRequired,
-    })
-  ),
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filterValue: PropTypes.string.isRequired,
   onDeleteContact: PropTypes.func.isRequired,
 };
 
