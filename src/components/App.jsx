@@ -5,9 +5,8 @@ import { Container } from './App.styles';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
-import ContactListItem from './ContactListItem/ContactListItem';
 
-export default class App extends Component {
+class App extends Component {
   state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -64,3 +63,4 @@ export default class App extends Component {
     );
   }
 }
+export default App;
